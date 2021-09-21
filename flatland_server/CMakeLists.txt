@@ -76,7 +76,6 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${YAML_CPP_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
-  ${Boost_INCLUDE_DIRS}
   ${LUA_INCLUDE_DIR}
   thirdparty
 )
@@ -110,11 +109,13 @@ add_library(flatland_lib
 
 add_dependencies(flatland_lib ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(flatland_lib
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${LUA_LIBRARIES}
   flatland_Box2D
+  ${LUA_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${catkin_LIBRARIES}
+  Boost::date_time
+  Boost::system
+  Boost::thread
   yaml-cpp
 )
 
@@ -129,13 +130,15 @@ add_dependencies(flatland_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(flatland_server
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${LUA_LIBRARIES}
   flatland_Box2D
-  yaml-cpp
   flatland_lib
+  ${LUA_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${catkin_LIBRARIES}
+  Boost::date_time
+  Boost::system
+  Boost::thread
+  yaml-cpp
 )
 
 #############
